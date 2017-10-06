@@ -4,43 +4,57 @@ class Welcome extends React.Component {
     super(props)
     this.state = {
       date: new Date(),
-      count:1
+      test:1
     }
 
-
-    setInterval(() => { // 搜索「JS 箭头函数 MDN」
-      this.setState({
-        date: new Date(), // 更新 date
-      })
-    },1000)
-
+    console.log('初始化完毕了')
 
   }
   componentWillMount() {
-    this.setState({count: this.state.count + 1});
-    this.setState({count: this.state.count + 1});
-    this.setState({count: this.state.count + 1});
+    this.setState({
+      date: new Date(), // 更新 date
+      test: 'componentWillMount'
+    })
     console.log('要进行载入了')
-  }
-  componentDidMount() {
-    console.log('载入完毕了')
-  }
-  componentWillUpdate() {
-    console.log('要更新了')
-  }
-  componentDidUpdate() {
-    console.log('更新完毕了')
   }
   render() {
     console.log('嗯，这里是 render')
     return (
         <div>
-
           <h1>Hello, {this.props.name}</h1>
-          <h1>Hello, {this.state.count}</h1>
           <h2>{this.state.date.toString()}</h2>
+          <p>{this.state.test}</p>
         </div>
     )
+  }
+  componentDidMount(){
+    this.setState({
+      date: new Date(), // 更新 date
+      test: 'componentDidMount'
+    })
+    console.log('已经挂载到页面里了')
+  }
+  componentWillReceiveProps(){
+    this.setState({
+      date: new Date(), // 更新 date
+      test: 'componentWillReceiveProps'
+    })
+  }
+
+  componentWillUpdate(){
+    // this.setState({
+    //   date: new Date(), // 更新 date
+    //   test: 'componentWillUpdate'
+    // })
+  }
+  componentDidUpdate(){
+    // this.setState({
+    //   date: new Date(), // 更新 date
+    //   test: 'componentDidUpdate'
+    // })
+  }
+  componentWillUnmount(){
+    console.log('要死了')
   }
 }
 
