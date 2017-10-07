@@ -17,6 +17,10 @@ class App extends Component {
     }
   }
 
+  addTodo() {
+    console.log('要添加代办了')
+  }
+
   render() {
 
     let todos = this.state.todoList.map((item, index) => {
@@ -32,7 +36,7 @@ class App extends Component {
           <h1>我的待办</h1>
           <div className="inputWrapper">
             {/*注意 value= 后面不要加引号，加了你试下，会错*/}
-            <TodoInput content={this.state.newTodo}/>
+            <TodoInput content={this.state.newTodo} onSubmit={this.addTodo}/>
           </div>
           <ol>
             {todos}
