@@ -15,7 +15,3 @@ ul,ol,dl{
 a{
   color: inherit;
 }
-
-li>div {
-  padding: 0.5em;
-}

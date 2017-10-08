@@ -9,13 +9,17 @@
   min-width: 32em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.15);
 }
-.inputWrapper>input {
-  width: 20em;
- }
+
 
 li>div:hover {
-  width: 20em;
   margin: 0 auto;
   background-color: red;
   color: white;
+}
+
+App > .todoList> li:nth-child(odd){
+  background: #eee;
+}
+.App > .todoList> li:nth-child(even){
+  background: transparent;
 }
