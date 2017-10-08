@@ -1,21 +1,23 @@
 import React, {Component} from 'react'
-import './App.css'
+import '../css/App.css'
 import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
 import 'normalize.css'
-import './reset.css'
+import '../css/reset.css'
+import * as localStore from './localStore'
 
+var log = console.log.bind(console)
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       newTodo: '',
-      todoList: [],
+      todoList: localStore.load('todoList') || [],
     }
   }
 
   render() {
-
+    log('布局中')
     let todos = this.state.todoList
         .filter((item) => !item.deleted)
         .map((item, index) => {
@@ -30,7 +32,6 @@ class App extends Component {
         <div className="App">
           <h1>我的待办</h1>
           <div className="inputWrapper">
-            {/*注意 value= 后面不要加引号，加了你试下，会错*/}
             <TodoInput content={this.state.newTodo}
                        onSubmit={this.addTodo.bind(this)}
                        onChange={this.changeTitle.bind(this)}/>
@@ -40,6 +41,13 @@ class App extends Component {
           </ol>
         </div>
     )
+  }
+
+  componentWillUpdate() {
+    log('要更新了')
+  }
+  componentDidUpdate() {
+    log('更新完毕')
   }
 
   addTodo(e) {
@@ -54,23 +62,30 @@ class App extends Component {
       newTodo: '',
       todoList: this.state.todoList,
     })
+    localStore.save('todoList', this.state.todoList)
   }
 
   changeTitle(e) {
     this.setState({
       newTodo: e.target.value,
       todoList: this.state.todoList,
+
     })
+    localStore.save('todoList', this.state.todoList)
   }
 
   toggle(e, todo) {
+    log('要切换状态了')
     todo.status = todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state)
+    localStore.save('todoList', this.state.todoList)
   }
 
   delete(e, todo) {
+    log('要删除了')
     todo.deleted = true
     this.setState(this.state)
+    localStore.save('todoList', this.state.todoList)
   }
 
 }
@@ -83,3 +98,5 @@ function idMaker() {
   id += 1
   return id
 }
+
+export {log}
